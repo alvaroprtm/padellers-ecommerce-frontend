@@ -130,9 +130,6 @@ const ProductDetails = () => {
     <div className="min-h-screen flex justify-center items-center">
       <div className="text-center py-8">
         <div className="text-red-400 mb-4">
-          <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
           <p className="text-lg font-medium text-white">Failed to load product</p>
           <p className="text-sm text-gray-400 mt-1">{error}</p>
         </div>
@@ -158,9 +155,6 @@ const ProductDetails = () => {
     <div className="min-h-screen bg-gray-900 flex justify-center items-center">
       <div className="text-center py-8">
         <div className="text-gray-500">
-          <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-          </svg>
           <p className="text-lg font-medium text-gray-300">Product not found</p>
           <p className="text-sm text-gray-500 mt-1">The product you're looking for doesn't exist</p>
         </div>
@@ -248,16 +242,17 @@ const ProductDetails = () => {
             )}
 
             <div className="space-y-4">
-              <CanAccess 
-                permissions={['product.edit', 'product.delete']}
-                fallback={ <p>You but don't have management permissions.</p> }
-              >
+              
                 {isOwner ? (
-                  <ProductManagementSection />
+                  <CanAccess 
+                  permissions={['product.edit', 'product.delete']}
+                  fallback={ <p>You but don't have management permissions.</p> }
+                  >
+                    <ProductManagementSection />
+                  </CanAccess>
                 ) : (
                   <AddToCartSection />
                 )}
-              </CanAccess>
             </div>
           </div>
         </div>

@@ -13,7 +13,6 @@ import AddProduct from './pages/products/AddProduct';
 import EditProduct from './pages/products/EditProduct';
 import SupplierOrders from './pages/supplier/SupplierOrders';
 import { CanAccess } from './components/common/CanAccess';
-// import SupplierDashboard from './pages/SupplierDashboard';
 
 function App() {
 
