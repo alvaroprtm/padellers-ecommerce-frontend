@@ -12,6 +12,7 @@ import Orders from './pages/orders/Orders';
 import AddProduct from './pages/products/AddProduct';
 import EditProduct from './pages/products/EditProduct';
 import SupplierOrders from './pages/supplier/SupplierOrders';
+import { CanAccess } from './components/common/CanAccess';
 // import SupplierDashboard from './pages/SupplierDashboard';
 
 function App() {
@@ -26,16 +27,30 @@ function App() {
             
             <Route path="/" element={<Home/>} />
             <Route path="/product/:id" element={<ProductDetails/>} />
-            <Route path="/product/create" element={<AddProduct/>}/>
-            <Route path="/product/:id/edit" element={<EditProduct/>} />
+
+            <Route path="/product/create" element={
+              <CanAccess permission="product.create" fallback={<div>Access Denied</div>}>
+                <AddProduct/>
+              </CanAccess>
+            }/>
+            <Route path="/product/:id/edit" element={
+              <CanAccess permission="product.edit" fallback={<div>Access Denied</div>}>
+                <EditProduct/>
+              </CanAccess>
+            } />
 
             <Route path="/cart" element={<Cart/>} />
-            <Route path="/orders" element={<Orders/>} />
+            <Route path="/orders" element={
+              <CanAccess permission="order.view" fallback={<div>Access Denied</div>}>
+                <Orders/>
+              </CanAccess>
+            } />
 
-            <Route path="/supplier/orders" element={<SupplierOrders/>} />
-
-            {/* <Route path="/supplier/dashboard" element={<SupplierDashboard/>} /> */}
-
+            <Route path="/supplier/orders" element={
+              <CanAccess permission="product.order.view" fallback={<div>Access Denied</div>}>
+                <SupplierOrders/>
+              </CanAccess>
+            } />
           </Routes>
         </AppLayout>
       </CartProvider>
