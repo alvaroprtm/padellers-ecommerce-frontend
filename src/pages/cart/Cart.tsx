@@ -1,8 +1,8 @@
-import { useCart } from '../context/CartContext';
+import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import api from '../configs/axios';
-import { useAppContext } from '../context/AppContext';
+import api from '../../configs/axios';
+import { useAppContext } from '../../context/AppContext';
 
 const Cart = () => {
   const { items, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();

@@ -1,6 +1,6 @@
 import { useProducts } from '../hooks/useProducts';
 import ProductCard from './ProductCard';
-import type { Product } from '../types/Products';
+import type { Product } from '../types/index';
 
 interface ProductListProps {
   onProductClick?: (product: Product) => void;

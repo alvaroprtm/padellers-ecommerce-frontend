@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useProduct } from '../hooks/useProductDetails';
-import { useCart } from '../context/CartContext';
-import { useAppContext } from '../context/AppContext';
+import { useProduct } from '../../hooks/useProductDetails';
+import { useCart } from '../../context/CartContext';
+import { useAppContext } from '../../context/AppContext';
 import { useState } from 'react';
-import api from '../configs/axios';
+import api from '../../configs/axios';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();

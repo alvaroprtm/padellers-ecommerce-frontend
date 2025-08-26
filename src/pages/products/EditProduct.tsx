@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../configs/axios';
-import { useAppContext } from '../context/AppContext';
+import api from '../../configs/axios';
+import { useAppContext } from '../../context/AppContext';
 
 const EditProduct = () => {
   const { id } = useParams<{ id: string }>();

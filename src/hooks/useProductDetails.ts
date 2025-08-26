@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '../configs/axios';
-import type { Product } from '../types/Products';
+import type { Product } from '../types/index';
 import { useAppContext } from '../context/AppContext';
 
 export function useProduct(productId: string | undefined) {

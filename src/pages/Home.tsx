@@ -1,5 +1,5 @@
 import { useAppContext } from '../context/AppContext';
-import type { Product } from '../types/Products';
+import type { Product } from '../types/index';
 import ProductList from '../components/ProductList';
 import { useNavigate } from 'react-router-dom';
 

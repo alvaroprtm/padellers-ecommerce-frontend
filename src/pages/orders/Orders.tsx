@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../configs/axios';
-import type { Order } from '../types/Cart';
+import api from '../../configs/axios';
+import type { Order } from '../../types/index';
 
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);

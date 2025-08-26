@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../configs/axios';
-import type { Order } from '../types/Cart';
-import { useAppContext } from '../context/AppContext';
+import api from '../../configs/axios';
+import type { Order } from '../../types/index';
+import { useAppContext } from '../../context/AppContext';
 
 const SupplierOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
