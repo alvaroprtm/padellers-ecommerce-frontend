@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useUserOrders } from '../../hooks/orders/useUserOrders';
+import { DeleteOrderButton } from '../../components/DeleteOrderButton';
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -157,6 +158,11 @@ const Orders = () => {
                         {(order.order_items?.length || 0) > 1 && ` and ${(order.order_items?.length || 0) - 1} more`}
                       </p>
                     </div>
+
+                    <DeleteOrderButton 
+                        order={order} 
+                        onOrderDeleted={refetchOrders}
+                      />
                   </div>
                 </div>
               </div>
