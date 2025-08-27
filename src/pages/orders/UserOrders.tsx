@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useUserOrders } from '../../hooks/orders/useUserOrders';
-import { DeleteOrderButton } from '../../components/DeleteOrderButton';
+import { DeleteOrderButton } from '../../components/order/DeleteOrderButton';
 
 const Orders = () => {
   const navigate = useNavigate();

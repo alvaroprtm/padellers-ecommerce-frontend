@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { CartProvider } from './context/CartContext';
-import { AppLayout } from './components/Applayout';
+import { AppLayout } from './components/layout/Applayout';
 
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -12,7 +12,7 @@ import Orders from './pages/orders/UserOrders';
 import AddProduct from './pages/products/AddProduct';
 import EditProduct from './pages/products/EditProduct';
 import SupplierOrders from './pages/orders/SupplierOrders';
-import { CanAccess } from './components/CanAccess';
+import { CanAccess } from './components/common/CanAccess';
 
 function App() {
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import type { Order } from '../types/index';
+import type { Order } from '../../types/index';
 
-interface StatusUpdateDropdownProps {
+interface OrderStatusDropdownProps {
   currentStatus: Order['status'];
   orderId: number;
   onStatusUpdate: (orderId: number, status: Order['status']) => void;
@@ -17,13 +17,13 @@ const statusOptions: { value: Order['status']; label: string; color: string }[] 
   { value: 'cancelled', label: 'Cancelled', color: 'text-red-400' },
 ];
 
-export const StatusUpdateDropdown = ({
+export const OrderStatusDropdown = ({
   currentStatus,
   orderId,
   onStatusUpdate,
   loading = false,
   disabled = false
-}: StatusUpdateDropdownProps) => {
+}: OrderStatusDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleStatusChange = (newStatus: Order['status']) => {

@@ -21,7 +21,6 @@ const AddProduct = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev: any) => ({
         ...prev,
@@ -34,14 +33,11 @@ const AddProduct = () => {
     e.preventDefault();
     setLoading(true);
     setErrors({});
-
     try {
       const response = await api.post('/api/products', {
         ...formData,
         price: parseFloat(formData.price) || 0
       });
-
-      // Success - redirect to product detail or back to products
       navigate(`/product/${response.data.id}`);
     } catch (error: any) {
       if (error.response?.data?.errors) {
@@ -54,7 +50,6 @@ const AddProduct = () => {
     }
   };
 
-  // Check if user is authenticated
   if (!user) {
     return (
       <div className="min-h-screen bg-black flex justify-center items-center" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
@@ -74,7 +69,6 @@ const AddProduct = () => {
   return (
     <div className="min-h-screen bg-black">
       <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Header */}
             <button
               onClick={() => navigate('/')}
               className="flex items-center text-gray-400 hover:text-white transition-colors duration-200 mr-4"
@@ -86,17 +80,14 @@ const AddProduct = () => {
             </button>
             <h1 className="text-3xl font-bold my-5">Add New Product</h1>
 
-        {/* Form */}
         <div className="bg-gray-900 bg-opacity-50 rounded-lg border border-gray-800 backdrop-blur-sm">
           <form onSubmit={handleSubmit} className="p-6">
-            {/* General Error */}
             {errors.general && (
               <div className="mb-6 p-3 bg-red-900 bg-opacity-50 border border-red-700 rounded-lg text-red-300">
                 {errors.general}
               </div>
             )}
 
-            {/* Product Name */}
             <div className="mb-6">
               <label htmlFor="name" className="block text-sm font-medium mb-2">
                 Product Name *
@@ -116,7 +107,6 @@ const AddProduct = () => {
               )}
             </div>
 
-            {/* Description */}
             <div className="mb-6">
               <label htmlFor="description" className="block text-sm font-medium mb-2">
                 Description
@@ -135,7 +125,6 @@ const AddProduct = () => {
               )}
             </div>
 
-            {/* Price */}
             <div className="mb-6">
               <label htmlFor="price" className="block text-sm font-medium mb-2">
                 Price (€) *
@@ -157,7 +146,6 @@ const AddProduct = () => {
               )}
             </div>
 
-            {/* Image URL */}
             <div className="mb-8">
               <label htmlFor="image_url" className="block text-sm font-medium mb-2">
                 Image URL
@@ -176,7 +164,6 @@ const AddProduct = () => {
               )}
             </div>
 
-            {/* Buttons */}
             <div className="flex space-x-4">
               <button
                 type="submit"
@@ -204,7 +191,6 @@ const AddProduct = () => {
           </form>
         </div>
 
-        {/* Helper Text */}
         <div className="mt-6 text-center text-gray-400 text-sm">
           <p>* Required fields</p>
         </div>

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import Header  from './Header';
-import { useAppContext } from '../context/AppContext';
+import Header  from '../common/Header';
+import { useAppContext } from '../../context/AppContext';
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
   const { loading, error, clearError } = useAppContext();

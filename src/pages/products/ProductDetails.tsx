@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 import { useAppContext } from '../../context/AppContext';
 import { useState } from 'react';
 import api from '../../configs/axios';
-import { CanAccess } from '../../components/CanAccess';
+import { CanAccess } from '../../components/common/CanAccess';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -174,7 +174,6 @@ const ProductDetails = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Navigation */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <button
           onClick={() => navigate('/')}
@@ -187,10 +186,8 @@ const ProductDetails = () => {
         </button>
       </div>
 
-      {/* Product Details */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-gray-800 rounded-lg shadow-2xl overflow-hidden border border-gray-700">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Product Image */}
           <div className="aspect-square bg-gray-700 relative rounded-lg overflow-hidden">
             {product.image_url ? (
               <img
@@ -211,7 +208,6 @@ const ProductDetails = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent"></div>
           </div>
 
-          {/* Product Info */}
           <div className="p-8">
             <div className="mb-6">
               <h1 className="text-3xl font-bold text-white mb-4">

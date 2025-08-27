@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDeleteOrder } from '../hooks/orders/useDeleteOrders';
-import type { Order } from '../types/index';
+import { useDeleteOrder } from '../../hooks/orders/useDeleteOrders';
+import type { Order } from '../../types/index';
 
 interface DeleteOrderButtonProps {
   order: Order;

@@ -1,6 +1,6 @@
 import { useAppContext } from '../context/AppContext';
 import type { Product } from '../types/index';
-import ProductList from '../components/ProductList';
+import ProductList from '../components/products/ProductList';
 import { useNavigate } from 'react-router-dom';
 import { usePermissions } from '../hooks/auth/usePermission';
 import { useProducts } from '../hooks/products/useProducts';

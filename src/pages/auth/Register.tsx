@@ -27,7 +27,6 @@ const Register: React.FC = () => {
       </div>
       <form onSubmit={handleSubmit} className="mx-10 px-10">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* Form fields */}
           <div className="sm:col-span-4 mt-2">
             <label htmlFor="name" className="block text-sm/6 font-medium text-white">Name</label>
             <div className="mt-3">
@@ -81,7 +80,6 @@ const Register: React.FC = () => {
             </div>
           </div>
 
-          {/* Role selection */}
           <div className="sm:col-span-4 mt-2">
             <label htmlFor="role" className="block text-sm/6 font-medium text-white">Type</label>
             <div className="mt-3">
@@ -101,7 +99,6 @@ const Register: React.FC = () => {
           </div>
         </div>
 
-        {/* Display error messages */}
         {errorMessages && (
           <div className="mt-3 text-sm text-red-500">
             {errorMessages.split('\n').map((message, index) => (

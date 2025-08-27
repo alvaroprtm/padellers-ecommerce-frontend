@@ -4,7 +4,7 @@ import api from '../../configs/axios';
 import type { Order } from '../../types/index';
 import { usePermissions } from '../../hooks/auth/usePermission';
 import { useUpdateOrderStatus } from '../../hooks/orders/useUpdateOrderStatus';
-import { StatusUpdateDropdown } from '../../components/StatusUpdateDropdown';
+import { OrderStatusDropdown } from '../../components/order/OrderStatusDropdown';
 import { useAppContext } from '../../context/AppContext';
 
 const SupplierOrders = () => {
@@ -23,7 +23,6 @@ const SupplierOrders = () => {
     fetchSupplierOrders();
   }, []);
 
-  // Clear update error after 5 seconds
   useEffect(() => {
     if (updateError) {
       const timer = setTimeout(clearError, 5000);
@@ -56,17 +55,6 @@ const SupplierOrders = () => {
           order.id === orderId ? { ...order, status: newStatus } : order
         )
       );
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'pending': return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20';
-      case 'paid': return 'text-blue-400 bg-blue-400/10 border-blue-400/20';
-      case 'shipped': return 'text-purple-400 bg-purple-400/10 border-purple-400/20';
-      case 'completed': return 'text-green-400 bg-green-400/10 border-green-400/20';
-      case 'cancelled': return 'text-red-400 bg-red-400/10 border-red-400/20';
-      default: return 'text-gray-400 bg-gray-400/10 border-gray-400/20';
     }
   };
 
@@ -115,9 +103,6 @@ const SupplierOrders = () => {
       <div className="min-h-screen bg-black flex justify-center items-center" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
         <div className="text-center">
           <div className="text-red-400 mb-4">
-            <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
             <p className="text-lg font-medium">Failed to load orders</p>
             <p className="text-sm text-gray-400 mt-1">{error}</p>
           </div>
@@ -214,7 +199,7 @@ const SupplierOrders = () => {
                         <p className="text-xs text-gray-400">Your earnings</p>
                       </div>
                       <div className="flex flex-col items-end space-y-2">
-                        <StatusUpdateDropdown
+                        <OrderStatusDropdown
                           currentStatus={order.status}
                           orderId={order.id}
                           onStatusUpdate={handleStatusUpdate}
