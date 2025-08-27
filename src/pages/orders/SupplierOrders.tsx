@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../configs/axios';
 import type { Order } from '../../types/index';
-import { usePermissions } from '../../hooks/usePermission';
+import { usePermissions } from '../../hooks/auth/usePermission';
 import { useUpdateOrderStatus } from '../../hooks/orders/useUpdateOrderStatus';
 import { StatusUpdateDropdown } from '../../components/StatusUpdateDropdown';
 import { useAppContext } from '../../context/AppContext';

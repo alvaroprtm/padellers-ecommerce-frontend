@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../../configs/axios';
 import type { Product } from '../../types/index';
 import { useAppContext } from '../../context/AppContext';
-import { usePermissions } from '../usePermission';
+import { usePermissions } from '../auth/usePermission';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);

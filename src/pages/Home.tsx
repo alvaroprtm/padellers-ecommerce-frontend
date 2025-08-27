@@ -2,7 +2,7 @@ import { useAppContext } from '../context/AppContext';
 import type { Product } from '../types/index';
 import ProductList from '../components/ProductList';
 import { useNavigate } from 'react-router-dom';
-import { usePermissions } from '../hooks/usePermission';
+import { usePermissions } from '../hooks/auth/usePermission';
 import { useProducts } from '../hooks/products/useProducts';
 
 const Home: React.FC = () => {
@@ -19,12 +19,8 @@ const Home: React.FC = () => {
   return (
     <div>
       <header className="relative shadow-sm">
-        <div className="flex justify-between items-center">
-          <div>
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-              <h1 className="text-3xl text-white font-bold">Welcome {user?.name || ''}</h1>
-            </div>
-          </div>
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <h1 className="text-3xl text-white font-bold">Welcome {user?.name || ''}</h1>
         </div>
       </header>
       <main>

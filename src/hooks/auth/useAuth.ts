@@ -1,5 +1,5 @@
-import api from '../configs/axios';
-import { useAppContext } from '../context/AppContext';
+import api from '../../configs/axios';
+import { useAppContext } from '../../context/AppContext';
 
 interface LoginPayload { email: string; password: string; }
 interface RegisterPayload { name: string; email: string; password: string; password_confirmation: string; role: string; }

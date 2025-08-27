@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { usePermissions } from '../../hooks/usePermission';
+import { usePermissions } from '../hooks/auth/usePermission';
 
 interface CanAccessProps {
   permission?: string;

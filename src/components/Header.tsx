@@ -1,8 +1,8 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
-import { useAuth } from '../hooks/useAuth';
-import { CanAccess } from './common/CanAccess';
-import { usePermissions } from '../hooks/usePermission';
+import { useAuth } from '../hooks/auth/useAuth';
+import { CanAccess } from './CanAccess';
+import { usePermissions } from '../hooks/auth/usePermission';
 
 const Header = () => {
   const { user } = useAppContext();

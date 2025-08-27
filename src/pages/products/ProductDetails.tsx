@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 import { useAppContext } from '../../context/AppContext';
 import { useState } from 'react';
 import api from '../../configs/axios';
-import { CanAccess } from '../../components/common/CanAccess';
+import { CanAccess } from '../../components/CanAccess';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
