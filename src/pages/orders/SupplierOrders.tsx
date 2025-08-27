@@ -3,17 +3,33 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../configs/axios';
 import type { Order } from '../../types/index';
 import { usePermissions } from '../../hooks/usePermission';
+import { useUpdateOrderStatus } from '../../hooks/orders/useUpdateOrderStatus';
+import { StatusUpdateDropdown } from '../../components/StatusUpdateDropdown';
+import { useAppContext } from '../../context/AppContext';
 
 const SupplierOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+
+  const {user} = useAppContext();
+
   const navigate = useNavigate();
   const { hasRole } = usePermissions();
+  const { updateOrderStatus, loading: updateLoading, error: updateError, clearError } = useUpdateOrderStatus();
 
   useEffect(() => {
     fetchSupplierOrders();
   }, []);
+
+  // Clear update error after 5 seconds
+  useEffect(() => {
+    if (updateError) {
+      const timer = setTimeout(clearError, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [updateError, clearError]);
 
   const fetchSupplierOrders = async () => {
     try {
@@ -26,6 +42,20 @@ const SupplierOrders = () => {
       setError(errorMessage);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleStatusUpdate = async (orderId: number, newStatus: Order['status']) => {
+    console.log(user)
+    const updatedOrder = await updateOrderStatus(orderId, newStatus);
+    
+    if (updatedOrder) {
+      // Update the local state
+      setOrders(prevOrders =>
+        prevOrders.map(order =>
+          order.id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
     }
   };
 
@@ -117,7 +147,7 @@ const SupplierOrders = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold">Product Orders</h1>
-            <p className="text-gray-400 mt-1">Orders containing your products</p>
+            <p className="text-gray-400 mt-1">Manage orders containing your products</p>
           </div>
           <button
             onClick={() => navigate('/')}
@@ -126,6 +156,26 @@ const SupplierOrders = () => {
             Back to Products
           </button>
         </div>
+
+        {/* Update Error Alert */}
+        {updateError && (
+          <div className="mb-6 bg-red-900 bg-opacity-50 border border-red-600 rounded-lg p-4">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-red-200">{updateError}</span>
+              <button
+                onClick={clearError}
+                className="ml-auto text-red-400 hover:text-red-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
 
         {orders.length === 0 ? (
           <div className="text-center py-16">
@@ -156,14 +206,21 @@ const SupplierOrders = () => {
                         Ordered by <span className="text-white">{order.user?.name}</span> on {formatDate(order.created_at)}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(order.status)}`}>
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    <div className="text-right flex items-center space-x-4">
+                      <div>
+                        <p className="text-lg font-bold text-amber-400">
+                          €{calculateSupplierTotal(order).toFixed(2)}
+                        </p>
+                        <p className="text-xs text-gray-400">Your earnings</p>
                       </div>
-                      <p className="text-lg font-bold text-amber-400 mt-1">
-                        €{calculateSupplierTotal(order).toFixed(2)}
-                      </p>
-                      <p className="text-xs text-gray-400">Your earnings</p>
+                      <div className="flex flex-col items-end space-y-2">
+                        <StatusUpdateDropdown
+                          currentStatus={order.status}
+                          orderId={order.id}
+                          onStatusUpdate={handleStatusUpdate}
+                          loading={updateLoading}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
