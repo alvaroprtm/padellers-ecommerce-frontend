@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../configs/axios';
 import type { Order } from '../../types/index';
-import { useAppContext } from '../../context/AppContext';
+import { usePermissions } from '../../hooks/usePermission';
 
 const SupplierOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { user } = useAppContext();
+  const { hasRole } = usePermissions();
 
   useEffect(() => {
     fetchSupplierOrders();
@@ -56,9 +56,7 @@ const SupplierOrders = () => {
     }, 0) || 0;
   };
 
-  // Check if user is supplier
-  const isSupplier = user?.role?.includes('supplier');
-  if (!isSupplier) {
+  if (!hasRole('supplier')) {
     return (
       <div className="min-h-screen bg-black flex justify-center items-center" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
         <div className="text-center">

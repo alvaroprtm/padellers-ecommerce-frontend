@@ -1,14 +1,13 @@
 import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import api from '../../configs/axios';
+import { useCreateOrder } from '../../hooks/orders/useCreateOrders';
 import { useAppContext } from '../../context/AppContext';
 
 const Cart = () => {
   const { items, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
   const { user } = useAppContext();
   const navigate = useNavigate();
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const { createOrder, loading: orderLoading, error: orderError, clearError } = useCreateOrder();
 
   const handleCheckout = async () => {
     if (!user) {
@@ -17,29 +16,13 @@ const Cart = () => {
     }
 
     if (items.length === 0) return;
+    clearError();
 
-    setIsCheckingOut(true);
-    try {
-      const orderData = {
-        items: items.map(item => ({
-          product_id: item.product.id,
-          quantity: item.quantity
-        }))
-      };
-
-      const response = await api.post('/api/orders', orderData);
-      
-      // Clear cart after successful order
+    const order = await createOrder(items);
+    
+    if (order) {
       clearCart();
-      
-      // Navigate to order confirmation
-      navigate(`/orders/${response.data.id}`);
-      
-    } catch (error: any) {
-      console.error('Checkout failed:', error);
-      alert('Checkout failed. Please try again.');
-    } finally {
-      setIsCheckingOut(false);
+      navigate('/orders');
     }
   };
 
@@ -77,6 +60,26 @@ const Cart = () => {
             Continue Shopping
           </button>
         </div>
+
+        {/* Error Message */}
+        {orderError && (
+          <div className="mb-6 bg-red-900 bg-opacity-50 border border-red-600 rounded-lg p-4">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 text-red-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-red-200">{orderError}</span>
+              <button
+                onClick={clearError}
+                className="ml-auto text-red-400 hover:text-red-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
@@ -123,6 +126,7 @@ const Cart = () => {
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="w-8 h-8 rounded-full bg-gray-800 bg-opacity-50 hover:bg-gray-700 hover:bg-opacity-70 flex items-center justify-center transition-all duration-200"
+                          disabled={orderLoading}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
@@ -134,6 +138,7 @@ const Cart = () => {
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="w-8 h-8 rounded-full bg-gray-800 bg-opacity-50 hover:bg-gray-700 hover:bg-opacity-70 flex items-center justify-center transition-all duration-200"
+                          disabled={orderLoading}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -152,6 +157,7 @@ const Cart = () => {
                       <button
                         onClick={() => removeFromCart(item.id)}
                         className="text-red-400 hover:text-red-300 transition-colors duration-200"
+                        disabled={orderLoading}
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -190,27 +196,45 @@ const Cart = () => {
                 </div>
               </div>
 
+              {!user && (
+                <div className="mb-4 p-3 bg-yellow-900 bg-opacity-50 border border-yellow-600 rounded-lg">
+                  <p className="text-yellow-200 text-sm">Please log in to place an order</p>
+                </div>
+              )}
+
               <button
                 onClick={handleCheckout}
-                disabled={isCheckingOut}
+                disabled={orderLoading || !user}
                 className="w-full bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 disabled:transform-none"
               >
-                {isCheckingOut ? (
+                {orderLoading ? (
                   <div className="flex items-center justify-center">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Processing...
+                    Creating Order...
                   </div>
+                ) : !user ? (
+                  'Login to Checkout'
                 ) : (
-                  'Proceed to Checkout'
+                  'Place Order'
                 )}
               </button>
 
               <button
                 onClick={clearCart}
-                className="w-full mt-3 border border-gray-600 hover:border-gray-500 hover:bg-gray-700 hover:bg-opacity-50 text-gray-200 font-medium py-2 px-6 rounded-lg transition-all duration-200"
+                disabled={orderLoading}
+                className="w-full mt-3 border border-gray-600 hover:border-gray-500 hover:bg-gray-700 hover:bg-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed text-gray-200 font-medium py-2 px-6 rounded-lg transition-all duration-200"
               >
                 Clear Cart
               </button>
+
+              {!user && (
+                <button
+                  onClick={() => navigate('/login')}
+                  className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-200"
+                >
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </div>

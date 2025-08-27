@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import api from '../configs/axios';
-import type { Order } from '../types/index';
-import { useAppContext } from '../context/AppContext';
+import api from '../../configs/axios';
+import type { Order } from '../../types/index';
+import { useAppContext } from '../../context/AppContext';
 
 export function useUserOrders() {
   const [orders, setOrders] = useState<Order[]>([]);

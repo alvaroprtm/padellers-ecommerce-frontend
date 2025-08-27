@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
-import api from '../configs/axios';
-import type { Product } from '../types/index';
-import { useAppContext } from '../context/AppContext';
+import api from '../../configs/axios';
+import type { Product } from '../../types/index';
+import { useAppContext } from '../../context/AppContext';
+import { usePermissions } from '../usePermission';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { setError: setGlobalError, user } = useAppContext();
 
-  const isSupplier = user?.role?.includes('supplier') || false;
-  console.log('supplier? ', user?.role)
-  const uri = isSupplier ? '/api/supplier/products' : '/api/products';
+  const { setError: setGlobalError, user } = useAppContext();
+  const { hasRole } = usePermissions();
+
+  const uri = hasRole('supplier') ? '/api/supplier/products' : '/api/products';
 
   const fetchProducts = async () => {
     try {

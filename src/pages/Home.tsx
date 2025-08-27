@@ -2,10 +2,13 @@ import { useAppContext } from '../context/AppContext';
 import type { Product } from '../types/index';
 import ProductList from '../components/ProductList';
 import { useNavigate } from 'react-router-dom';
+import { usePermissions } from '../hooks/usePermission';
+import { useProducts } from '../hooks/products/useProducts';
 
 const Home: React.FC = () => {
   const { user } = useAppContext();
-  const isSupplier = user?.role?.includes('supplier') || false;
+  const { hasRole } = usePermissions();
+  const { products } = useProducts();
 
   const navigate = useNavigate();
 
@@ -25,20 +28,12 @@ const Home: React.FC = () => {
         </div>
       </header>
       <main>
-        {isSupplier &&            
+        {hasRole('supplier') &&            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
                   <h3 className="text-lg font-semibold text-gray-300">Total Products</h3>
-                  <p className="text-3xl font-bold text-amber-400">0</p>
-                </div>
-                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-300">Total Sales</h3>
-                  <p className="text-3xl font-bold text-green-400">€1,234</p>
-                </div>
-                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-300">Orders This Month</h3>
-                  <p className="text-3xl font-bold text-blue-400">42</p>
+                  <p className="text-3xl font-bold text-amber-400">{products.length}</p>
                 </div>
               </div>
             </div>

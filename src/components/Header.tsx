@@ -2,15 +2,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { useAuth } from '../hooks/useAuth';
 import { CanAccess } from './common/CanAccess';
+import { usePermissions } from '../hooks/usePermission';
 
 const Header = () => {
   const { user } = useAppContext();
   const { logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const isUser = user?.role?.includes('user') || false;
-  const isSupplier = user?.role?.includes('supplier') || false;
+  const { hasRole } = usePermissions();
 
   const handleLogout = async () => {
     await logout();
@@ -76,7 +75,7 @@ const Header = () => {
           </CanAccess>
 
           <CanAccess permission="product.order.view" fallback={null}>
-            {isSupplier && <NavLink href="/supplier/orders">Product Orders</NavLink>}
+            {hasRole('supplier') && <NavLink href="/supplier/orders">Product Orders</NavLink>}
           </CanAccess>
         </div>
 
@@ -92,7 +91,7 @@ const Header = () => {
                 <div className="text-sm">
                   <p className="text-white font-medium">{user.name}</p>
                   <p className="text-amber-400 text-xs capitalize">
-                    {isSupplier ? 'Supplier' : isUser ? 'Customer' : 'User'}
+                    {hasRole('supplier') ? 'Supplier' : hasRole('user') ? 'Customer' : 'User'}
                   </p>
                 </div>
               </div>

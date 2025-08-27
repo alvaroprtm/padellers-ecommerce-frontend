@@ -8,10 +8,10 @@ import Register from './pages/auth/Register';
 import Home from './pages/Home';
 import ProductDetails from './pages/products/ProductDetails';
 import Cart from './pages/cart/Cart';
-import Orders from './pages/orders/Orders';
+import Orders from './pages/orders/UserOrders';
 import AddProduct from './pages/products/AddProduct';
 import EditProduct from './pages/products/EditProduct';
-import SupplierOrders from './pages/supplier/SupplierOrders';
+import SupplierOrders from './pages/orders/SupplierOrders';
 import { CanAccess } from './components/common/CanAccess';
 
 function App() {

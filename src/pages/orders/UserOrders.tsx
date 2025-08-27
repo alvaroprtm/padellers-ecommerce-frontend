@@ -1,41 +1,9 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import api from '../../configs/axios';
-import type { Order } from '../../types/index';
+import { useNavigate } from 'react-router-dom';
+import { useUserOrders } from '../../hooks/orders/useUserOrders';
 
 const Orders = () => {
-  const [orders, setOrders] = useState<Order[]>([]);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-
-  useEffect(() => {
-    fetchOrders();
-  }, []);
-
-  useEffect(() => {
-    if (id && orders.length > 0) {
-      const order = orders.find(o => o.id === parseInt(id));
-      setSelectedOrder(order || null);
-    }
-  }, [id, orders]);
-
-  const fetchOrders = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await api.get('/api/orders');
-      console.log(response)
-      setOrders(response.data);
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to fetch orders';
-      setError(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { orders, loading, error, refetchOrders } = useUserOrders();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -56,16 +24,6 @@ const Orders = () => {
       hour: '2-digit',
       minute: '2-digit'
     });
-  };
-
-  const handleOrderClick = (order: Order) => {
-    setSelectedOrder(order);
-    navigate(`/orders/${order.id}`);
-  };
-
-  const handleBackToOrders = () => {
-    setSelectedOrder(null);
-    navigate('/orders');
   };
 
   if (loading) {
@@ -89,7 +47,7 @@ const Orders = () => {
           </div>
           <div className="space-x-4">
             <button
-              onClick={fetchOrders}
+              onClick={refetchOrders}
               className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg transition-colors duration-200"
             >
               Try Again
