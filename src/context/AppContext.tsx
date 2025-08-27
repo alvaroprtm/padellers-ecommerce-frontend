@@ -5,6 +5,7 @@ interface User {
   name: string;
   token: string;
   role: string;
+  permissions: string[];
 }
 
 interface AppContextValue {
@@ -27,7 +28,15 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const name = localStorage.getItem('userName');
     const role = localStorage.getItem('role');
     const id = localStorage.getItem('id');
-    return token && name && role && id ? { token, name, role, id: Number(id) } : null;
+    const permissions = localStorage.getItem('permissions');
+    
+    return token && name && role && permissions && id ? {
+      token,
+      name,
+      role,
+      permissions: JSON.parse(permissions),
+      id: Number(id)
+    } : null;
   });
   const [loading, setLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
@@ -38,11 +47,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem('token', u.token);
       localStorage.setItem('userName', u.name);
       localStorage.setItem('role', u.role);
+      localStorage.setItem('permissions', JSON.stringify(u.permissions));
       localStorage.setItem('id', String(u.id));
     } else {
       localStorage.removeItem('token');
       localStorage.removeItem('userName');
       localStorage.removeItem('role');
+      localStorage.removeItem('permissions');
       localStorage.removeItem('id');
     }
   }, []);

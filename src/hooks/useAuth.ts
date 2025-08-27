@@ -11,7 +11,7 @@ export function useAuth() {
     try {
       await api.get('/sanctum/csrf-cookie');
       const res = await api.post('/api/login', payload);
-      setUser({ id: res.data.user.id, name: res.data.user.name, token: res.data.token, role: res.data.roles[0] });
+      setUser({ id: res.data.user.id, name: res.data.user.name, token: res.data.token, role: res.data.roles[0], permissions:res.data.permissions });
       return true;
     } catch (e: any) {
       setError(e.response?.data?.message || 'Login failed');
