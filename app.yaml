@@ -15,7 +15,7 @@ static_sites:
   # Environment variables for build
   envs:
   - key: VITE_API_URL
-    value: "https://padellers-api-<your-app-id>.ondigitalocean.app"  # Replace with your actual backend URL
+    value: "https://padellers-api-h6zkh.ondigitalocean.app"  # Replace with your actual backend URL
   
   # Routes configuration
   routes:
