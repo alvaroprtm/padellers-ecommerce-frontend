@@ -9,7 +9,7 @@ static_sites:
   output_dir: dist
   envs:
   - key: VITE_API_URL
-    value: "https://padellers-api-h6zkh.ondigitalocean.app"
+    value: "https://padellers-back-h6zkh.ondigitalocean.app"
   routes:
   - path: /
   catchall_document: index.html
