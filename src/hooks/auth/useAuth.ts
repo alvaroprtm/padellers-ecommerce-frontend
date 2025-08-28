@@ -1,8 +1,17 @@
 import api from '../../configs/axios';
 import { useAppContext } from '../../context/AppContext';
 
-interface LoginPayload { email: string; password: string; }
-interface RegisterPayload { name: string; email: string; password: string; password_confirmation: string; role: string; }
+interface LoginPayload {
+  email: string;
+  password: string;
+}
+interface RegisterPayload {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  role: string;
+}
 
 export function useAuth() {
   const { setUser, setError } = useAppContext();
@@ -10,7 +19,13 @@ export function useAuth() {
   const login = async (payload: LoginPayload) => {
     try {
       const res = await api.post('/api/login', payload);
-      setUser({ id: res.data.user.id, name: res.data.user.name, token: res.data.token, role: res.data.roles[0], permissions:res.data.permissions });
+      setUser({
+        id: res.data.user.id,
+        name: res.data.user.name,
+        token: res.data.token,
+        role: res.data.roles[0],
+        permissions: res.data.permissions,
+      });
       return true;
     } catch (e: any) {
       setError(e.response?.data?.message || 'Login failed');

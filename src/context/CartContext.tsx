@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from 'react';
 import type { CartItem, Product } from '../types/index';
 import type { ReactNode } from 'react';
 interface CartContextValue {
@@ -42,7 +48,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         const newItem: CartItem = {
           id: `${product.id}-${Date.now()}`, // Simple unique ID
           product,
-          quantity
+          quantity,
         };
         return [...currentItems, newItem];
       }
@@ -53,18 +59,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setItems(currentItems => currentItems.filter(item => item.id !== itemId));
   }, []);
 
-  const updateQuantity = useCallback((itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(itemId);
-      return;
-    }
+  const updateQuantity = useCallback(
+    (itemId: string, quantity: number) => {
+      if (quantity <= 0) {
+        removeFromCart(itemId);
+        return;
+      }
 
-    setItems(currentItems =>
-      currentItems.map(item =>
-        item.id === itemId ? { ...item, quantity } : item
-      )
-    );
-  }, [removeFromCart]);
+      setItems(currentItems =>
+        currentItems.map(item =>
+          item.id === itemId ? { ...item, quantity } : item
+        )
+      );
+    },
+    [removeFromCart]
+  );
 
   const clearCart = useCallback(() => {
     setItems([]);
@@ -72,7 +81,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const getCartTotal = useCallback(() => {
     return items.reduce((total, item) => {
-      return total + (parseFloat(item.product.price) * item.quantity);
+      return total + parseFloat(item.product.price) * item.quantity;
     }, 0);
   }, [items]);
 
@@ -87,7 +96,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     updateQuantity,
     clearCart,
     getCartTotal,
-    getCartCount
+    getCartCount,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

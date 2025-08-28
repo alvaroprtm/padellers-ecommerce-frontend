@@ -16,7 +16,8 @@ export function useProduct(productId: string | undefined) {
       const response = await api.get(`/api/products/${id}`);
       setProduct(response.data);
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to fetch product details';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to fetch product details';
       setError(errorMessage);
       setGlobalError(errorMessage);
     } finally {
@@ -43,6 +44,6 @@ export function useProduct(productId: string | undefined) {
     product,
     loading,
     error,
-    refetchProduct
+    refetchProduct,
   };
 }

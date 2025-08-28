@@ -30,14 +30,16 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const role = localStorage.getItem('role');
     const id = localStorage.getItem('id');
     const permissions = localStorage.getItem('permissions');
-    
-    return token && name && role && permissions && id ? {
-      token,
-      name,
-      role,
-      permissions: JSON.parse(permissions),
-      id: Number(id)
-    } : null;
+
+    return token && name && role && permissions && id
+      ? {
+          token,
+          name,
+          role,
+          permissions: JSON.parse(permissions),
+          id: Number(id),
+        }
+      : null;
   });
   const [loading, setLoading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);

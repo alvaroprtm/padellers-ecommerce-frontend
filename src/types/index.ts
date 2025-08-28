@@ -1,25 +1,25 @@
 export interface User {
-id: number;
-name: string;
-email?: string;
-role: string;
-token?: string;
+  id: number;
+  name: string;
+  email?: string;
+  role: string;
+  token?: string;
 }
 
 export interface Product {
-id: number;
-user_id: number;
-name: string;
-description: string | null;
-price: string;
-image_url: string | null;
-created_at: string;
-updated_at: string;
-user?: User;
+  id: number;
+  user_id: number;
+  name: string;
+  description: string | null;
+  price: string;
+  image_url: string | null;
+  created_at: string;
+  updated_at: string;
+  user?: User;
 }
 
 export interface CartItem {
-  id: string; 
+  id: string;
   product: Product;
   quantity: number;
 }
@@ -47,34 +47,34 @@ export interface OrderItem {
 }
 
 export interface ProductsResponse {
-products: Product[];
+  products: Product[];
 }
 
 export interface LoginPayload {
-email: string;
-password: string;
+  email: string;
+  password: string;
 }
 
 export interface RegisterPayload {
-name: string;
-email: string;
-password: string;
-password_confirmation: string;
-role: string;
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  role: string;
 }
 
 export interface ApiResponse<T = any> {
-data: T;
-message?: string;
-status: number;
+  data: T;
+  message?: string;
+  status: number;
 }
 
 export interface ApiError {
-message: string;
-errors?: Record<string, string[]>;
+  message: string;
+  errors?: Record<string, string[]>;
 }
 
 export interface SelectOption {
-value: string;
-label: string;
+  value: string;
+  label: string;
 }

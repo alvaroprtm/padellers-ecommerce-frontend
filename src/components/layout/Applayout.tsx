@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import Header  from '../common/Header';
+import Header from '../common/Header';
 import { useAppContext } from '../../context/AppContext';
 
 export const AppLayout = ({ children }: { children: ReactNode }) => {
@@ -11,7 +11,9 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
       {error && (
         <div className="p-4 text-sm bg-red-900/30 border border-red-500/40 rounded mb-4 text-red-300 flex justify-between">
           <span>{error}</span>
-          <button className="underline text-xs" onClick={clearError}>Dismiss</button>
+          <button className="underline text-xs" onClick={clearError}>
+            Dismiss
+          </button>
         </div>
       )}
       <main>{children}</main>

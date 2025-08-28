@@ -14,18 +14,21 @@ A React-based frontend for a multi-supplier e-commerce platform with role-based 
 ## Features
 
 ### For Customers
+
 - Browse and search products
 - Shopping cart with persistent storage
 - Order placement and history
 - Responsive mobile-friendly design
 
 ### For Suppliers
+
 - Product management (CRUD operations)
 - Order tracking for their products
 - Inventory overview
 - Customer order details
 
 ### Authentication
+
 - Role-based login (customer/supplier)
 - Protected routes and navigation
 - Persistent sessions with Laravel Sanctum
@@ -33,10 +36,12 @@ A React-based frontend for a multi-supplier e-commerce platform with role-based 
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - Backend API running on `http://localhost:8000`
 
 ### Setup
+
 ```bash
 # Install dependencies
 npm install
@@ -53,6 +58,7 @@ Application runs at `http://localhost:5173`
 ## Development
 
 ### Scripts
+
 ```bash
 npm run dev      # Start development server
 npm run build    # Build for production
@@ -61,6 +67,7 @@ npm run preview  # Preview production build
 ```
 
 ### Key API Endpoints
+
 - **Auth**: `/api/register`, `/api/login`, `/api/logout`
 - **Products**: `/api/products` (CRUD operations)
 - **Orders**: `/api/orders` (view and create)
@@ -68,10 +75,12 @@ npm run preview  # Preview production build
 ## Architecture
 
 ### State Management
+
 - **AppContext**: Authentication and global state
 - **CartContext**: Shopping cart operations
 
 ### Custom Hooks
+
 - **useAuth**: Authentication logic
 - **useProducts**: Product management
 - **useSupplierProducts**: Supplier-specific operations
@@ -86,6 +95,7 @@ npm run build
 ```
 
 Set environment variable:
+
 ```env
 VITE_API_BASE_URL=https://your-api-domain.com/api
 ```

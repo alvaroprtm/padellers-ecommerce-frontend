@@ -18,29 +18,32 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const NavLink = ({ href, children, onClick }: { href?: string; children: React.ReactNode; onClick?: () => void }) => {
+  const NavLink = ({
+    href,
+    children,
+    onClick,
+  }: {
+    href?: string;
+    children: React.ReactNode;
+    onClick?: () => void;
+  }) => {
     const active = href ? isActive(href) : false;
-    const baseClasses = "px-3 py-2 rounded-lg font-medium transition-all duration-200 relative";
-    const activeClasses = active 
-      ? "text-amber-400 bg-amber-400/10 border border-amber-400/20" 
-      : "text-white hover:text-amber-300 hover:bg-white/5";
-    
+    const baseClasses =
+      'px-3 py-2 rounded-lg font-medium transition-all duration-200 relative';
+    const activeClasses = active
+      ? 'text-amber-400 bg-amber-400/10 border border-amber-400/20'
+      : 'text-white hover:text-amber-300 hover:bg-white/5';
+
     if (onClick) {
       return (
-        <button 
-          onClick={onClick}
-          className={`${baseClasses} ${activeClasses}`}
-        >
+        <button onClick={onClick} className={`${baseClasses} ${activeClasses}`}>
           {children}
         </button>
       );
     }
-    
+
     return (
-      <a 
-        href={href}
-        className={`${baseClasses} ${activeClasses}`}
-      >
+      <a href={href} className={`${baseClasses} ${activeClasses}`}>
         {children}
       </a>
     );
@@ -50,8 +53,8 @@ const Header = () => {
     <nav className="bg-black/80 backdrop-blur-sm border-b border-amber-400/20 px-6 py-4">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div>
-          <a 
-            href="/" 
+          <a
+            href="/"
             className="text-2xl font-bold text-amber-400 hover:text-amber-300 transition-colors duration-200"
           >
             Padellers
@@ -75,7 +78,9 @@ const Header = () => {
           </CanAccess>
 
           <CanAccess permission="product.order.view" fallback={null}>
-            {hasRole('supplier') && <NavLink href="/supplier/orders">Product Orders</NavLink>}
+            {hasRole('supplier') && (
+              <NavLink href="/supplier/orders">Product Orders</NavLink>
+            )}
           </CanAccess>
         </div>
 
@@ -91,7 +96,11 @@ const Header = () => {
                 <div className="text-sm">
                   <p className="text-white font-medium">{user.name}</p>
                   <p className="text-amber-400 text-xs capitalize">
-                    {hasRole('supplier') ? 'Supplier' : hasRole('user') ? 'Customer' : 'User'}
+                    {hasRole('supplier')
+                      ? 'Supplier'
+                      : hasRole('user')
+                        ? 'Customer'
+                        : 'User'}
                   </p>
                 </div>
               </div>

@@ -8,12 +8,18 @@ const Orders = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20';
-      case 'paid': return 'text-blue-400 bg-blue-400/10 border-blue-400/20';
-      case 'shipped': return 'text-purple-400 bg-purple-400/10 border-purple-400/20';
-      case 'completed': return 'text-green-400 bg-green-400/10 border-green-400/20';
-      case 'cancelled': return 'text-red-400 bg-red-400/10 border-red-400/20';
-      default: return 'text-gray-400 bg-gray-400/10 border-gray-400/20';
+      case 'pending':
+        return 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20';
+      case 'paid':
+        return 'text-blue-400 bg-blue-400/10 border-blue-400/20';
+      case 'shipped':
+        return 'text-purple-400 bg-purple-400/10 border-purple-400/20';
+      case 'completed':
+        return 'text-green-400 bg-green-400/10 border-green-400/20';
+      case 'cancelled':
+        return 'text-red-400 bg-red-400/10 border-red-400/20';
+      default:
+        return 'text-gray-400 bg-gray-400/10 border-gray-400/20';
     }
   };
 
@@ -23,7 +29,7 @@ const Orders = () => {
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -37,11 +43,24 @@ const Orders = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-black flex justify-center items-center" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
+      <div
+        className="min-h-screen bg-black flex justify-center items-center"
+        style={{ color: 'rgba(255, 255, 255, 0.87)' }}
+      >
         <div className="text-center">
           <div className="text-red-400 mb-4">
-            <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <svg
+              className="w-16 h-16 mx-auto mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             <p className="text-lg font-medium">Failed to load orders</p>
             <p className="text-sm text-gray-400 mt-1">{error}</p>
@@ -67,7 +86,10 @@ const Orders = () => {
 
   // Show orders list
   return (
-    <div className="min-h-screen bg-black" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
+    <div
+      className="min-h-screen bg-black"
+      style={{ color: 'rgba(255, 255, 255, 0.87)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
@@ -83,11 +105,28 @@ const Orders = () => {
         {orders.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-gray-400">
-              <svg className="w-24 h-24 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              <svg
+                className="w-24 h-24 mx-auto mb-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
               </svg>
-              <h2 className="text-2xl font-bold mb-2" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>No orders yet</h2>
-              <p className="text-gray-500 mb-6">Your order history will appear here</p>
+              <h2
+                className="text-2xl font-bold mb-2"
+                style={{ color: 'rgba(255, 255, 255, 0.87)' }}
+              >
+                No orders yet
+              </h2>
+              <p className="text-gray-500 mb-6">
+                Your order history will appear here
+              </p>
               <button
                 onClick={() => navigate('/')}
                 className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg transition-colors duration-200"
@@ -98,25 +137,32 @@ const Orders = () => {
           </div>
         ) : (
           <div className="space-y-6">
-            {orders.map((order) => (
-              <div 
-                key={order.id} 
+            {orders.map(order => (
+              <div
+                key={order.id}
                 className="bg-gray-900 bg-opacity-50 rounded-lg border border-gray-800 overflow-hidden backdrop-blur-sm hover:bg-opacity-70 transition-all duration-200 cursor-pointer"
               >
                 {/* Order Header */}
                 <div className="px-6 py-4 border-b border-gray-800">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h3 className="text-lg font-semibold">Order #{order.id}</h3>
+                      <h3 className="text-lg font-semibold">
+                        Order #{order.id}
+                      </h3>
                       <p className="text-gray-400 text-sm">
                         Placed on {formatDate(order.created_at)}
                       </p>
                     </div>
                     <div className="text-right">
-                      <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(order.status)}`}>
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                      <div
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(order.status)}`}
+                      >
+                        {order.status.charAt(0).toUpperCase() +
+                          order.status.slice(1)}
                       </div>
-                      <p className="text-xl font-bold text-amber-400 mt-1">€{order.price}</p>
+                      <p className="text-xl font-bold text-amber-400 mt-1">
+                        €{order.price}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -125,8 +171,11 @@ const Orders = () => {
                 <div className="px-6 py-4">
                   <div className="flex items-center space-x-4">
                     <div className="flex -space-x-2">
-                      {order.order_items?.slice(0, 3).map((item) => (
-                        <div key={item.id} className="w-12 h-12 bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden border-2 border-black">
+                      {order.order_items?.slice(0, 3).map(item => (
+                        <div
+                          key={item.id}
+                          className="w-12 h-12 bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden border-2 border-black"
+                        >
                           {item.product?.image_url ? (
                             <img
                               src={item.product.image_url}
@@ -135,8 +184,18 @@ const Orders = () => {
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-gray-500">
-                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2z" />
+                              <svg
+                                className="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 002 2v12a2 2 0 002 2z"
+                                />
                               </svg>
                             </div>
                           )}
@@ -144,25 +203,32 @@ const Orders = () => {
                       ))}
                       {(order.order_items?.length || 0) > 3 && (
                         <div className="w-12 h-12 bg-gray-800 bg-opacity-50 rounded-lg border-2 border-black flex items-center justify-center">
-                          <span className="text-xs text-gray-400">+{(order.order_items?.length || 0) - 3}</span>
+                          <span className="text-xs text-gray-400">
+                            +{(order.order_items?.length || 0) - 3}
+                          </span>
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="flex-1">
                       <p className="text-sm text-gray-400">
-                        {order.order_items?.length || 0} item{(order.order_items?.length || 0) !== 1 ? 's' : ''}
+                        {order.order_items?.length || 0} item
+                        {(order.order_items?.length || 0) !== 1 ? 's' : ''}
                       </p>
-                      <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
+                      <p
+                        className="text-sm"
+                        style={{ color: 'rgba(255, 255, 255, 0.87)' }}
+                      >
                         {order.order_items?.[0]?.product?.name}
-                        {(order.order_items?.length || 0) > 1 && ` and ${(order.order_items?.length || 0) - 1} more`}
+                        {(order.order_items?.length || 0) > 1 &&
+                          ` and ${(order.order_items?.length || 0) - 1} more`}
                       </p>
                     </div>
 
-                    <DeleteOrderButton 
-                        order={order} 
-                        onOrderDeleted={refetchOrders}
-                      />
+                    <DeleteOrderButton
+                      order={order}
+                      onOrderDeleted={refetchOrders}
+                    />
                   </div>
                 </div>
               </div>

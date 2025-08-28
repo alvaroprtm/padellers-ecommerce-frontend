@@ -8,7 +8,10 @@ export function useUpdateOrderStatus() {
   const [error, setError] = useState<string | null>(null);
   const { setError: setGlobalError } = useAppContext();
 
-  const updateOrderStatus = async (orderId: number, status: Order['status']): Promise<Order | null> => {
+  const updateOrderStatus = async (
+    orderId: number,
+    status: Order['status']
+  ): Promise<Order | null> => {
     try {
       setLoading(true);
       setError(null);
@@ -16,7 +19,8 @@ export function useUpdateOrderStatus() {
       const response = await api.patch(`/api/orders/${orderId}`, { status });
       return response.data;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to update order status';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to update order status';
       setError(errorMessage);
       setGlobalError(errorMessage);
       return null;
@@ -31,6 +35,6 @@ export function useUpdateOrderStatus() {
     updateOrderStatus,
     loading,
     error,
-    clearError
+    clearError,
   };
 }

@@ -17,8 +17,8 @@ api.interceptors.request.use(cfg => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
+  response => response,
+  error => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('userName');

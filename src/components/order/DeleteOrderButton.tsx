@@ -7,7 +7,10 @@ interface DeleteOrderButtonProps {
   onOrderDeleted: () => void;
 }
 
-export const DeleteOrderButton = ({ order, onOrderDeleted }: DeleteOrderButtonProps) => {
+export const DeleteOrderButton = ({
+  order,
+  onOrderDeleted,
+}: DeleteOrderButtonProps) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const { deleteOrder, loading } = useDeleteOrder();
 

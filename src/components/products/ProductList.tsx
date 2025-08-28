@@ -12,7 +12,9 @@ const ProductList = ({ onProductClick, className }: ProductListProps) => {
 
   if (loading) {
     return (
-      <div className={`flex justify-center items-center min-h-64 ${className || ''}`}>
+      <div
+        className={`flex justify-center items-center min-h-64 ${className || ''}`}
+      >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
       </div>
     );
@@ -38,7 +40,7 @@ const ProductList = ({ onProductClick, className }: ProductListProps) => {
   return (
     <div className={className}>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => (
+        {products.map(product => (
           <ProductCard
             key={product.id}
             product={product}

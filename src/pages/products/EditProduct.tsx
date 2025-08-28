@@ -6,15 +6,9 @@ const EditProduct = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAppContext();
-  
-  const {
-    formData,
-    loading,
-    saving,
-    errors,
-    handleChange,
-    handleSubmit,
-  } = useEditProduct(id);
+
+  const { formData, loading, saving, errors, handleChange, handleSubmit } =
+    useEditProduct(id);
 
   if (!user) {
     navigate('/login');
@@ -46,7 +40,10 @@ const EditProduct = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-200 mb-2"
+              >
                 Product Name
               </label>
               <input
@@ -65,7 +62,10 @@ const EditProduct = () => {
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-200 mb-2">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-200 mb-2"
+              >
                 Description
               </label>
               <textarea
@@ -78,12 +78,17 @@ const EditProduct = () => {
                 placeholder="Enter product description"
               />
               {errors.description && (
-                <p className="mt-1 text-sm text-red-400">{errors.description[0]}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.description[0]}
+                </p>
               )}
             </div>
 
             <div>
-              <label htmlFor="price" className="block text-sm font-medium text-gray-200 mb-2">
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-gray-200 mb-2"
+              >
                 Price (€)
               </label>
               <input
@@ -104,7 +109,10 @@ const EditProduct = () => {
             </div>
 
             <div>
-              <label htmlFor="image_url" className="block text-sm font-medium text-gray-200 mb-2">
+              <label
+                htmlFor="image_url"
+                className="block text-sm font-medium text-gray-200 mb-2"
+              >
                 Image URL
               </label>
               <input
@@ -117,7 +125,9 @@ const EditProduct = () => {
                 placeholder="https://example.com/image.jpg"
               />
               {errors.image_url && (
-                <p className="mt-1 text-sm text-red-400">{errors.image_url[0]}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.image_url[0]}
+                </p>
               )}
             </div>
 

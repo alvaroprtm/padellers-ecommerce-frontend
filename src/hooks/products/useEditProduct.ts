@@ -17,19 +17,23 @@ interface UseEditProductReturn {
   loading: boolean;
   saving: boolean;
   errors: any;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   clearErrors: () => void;
   isOwner: boolean;
 }
 
-export function useEditProduct(productId: string | undefined): UseEditProductReturn {
+export function useEditProduct(
+  productId: string | undefined
+): UseEditProductReturn {
   const [product, setProduct] = useState<Product | null>(null);
   const [formData, setFormData] = useState<ProductFormData>({
     name: '',
     description: '',
     price: '',
-    image_url: ''
+    image_url: '',
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -52,24 +56,25 @@ export function useEditProduct(productId: string | undefined): UseEditProductRet
       setLoading(true);
       const response = await api.get(`/api/products/${productId}`);
       const productData = response.data;
-      
+
       // Check if user owns this product
       if (productData.user_id !== user?.id) {
         setGlobalError('You are not authorized to edit this product');
         navigate('/');
         return;
       }
-      
+
       setProduct(productData);
       setFormData({
         name: productData.name || '',
         description: productData.description || '',
         price: productData.price ? productData.price.toString() : '',
-        image_url: productData.image_url || ''
+        image_url: productData.image_url || '',
       });
     } catch (error: any) {
       console.error('Failed to fetch product:', error);
-      const errorMessage = error.response?.data?.message || 'Failed to fetch product';
+      const errorMessage =
+        error.response?.data?.message || 'Failed to fetch product';
       setGlobalError(errorMessage);
       navigate('/');
     } finally {
@@ -77,10 +82,12 @@ export function useEditProduct(productId: string | undefined): UseEditProductRet
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     if (errors[name]) {
       setErrors((prev: any) => ({ ...prev, [name]: '' }));
     }
@@ -88,7 +95,7 @@ export function useEditProduct(productId: string | undefined): UseEditProductRet
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!productId) return;
 
     setSaving(true);
@@ -97,7 +104,7 @@ export function useEditProduct(productId: string | undefined): UseEditProductRet
     try {
       const response = await api.patch(`/api/products/${productId}`, {
         ...formData,
-        price: parseFloat(formData.price) || 0
+        price: parseFloat(formData.price) || 0,
       });
       setProduct(response.data);
       navigate(`/product/${productId}`);
@@ -105,7 +112,8 @@ export function useEditProduct(productId: string | undefined): UseEditProductRet
       if (error.response?.data?.errors) {
         setErrors(error.response.data.errors);
       } else {
-        const errorMessage = error.response?.data?.message || 'Failed to update product';
+        const errorMessage =
+          error.response?.data?.message || 'Failed to update product';
         setErrors({ general: errorMessage });
         setGlobalError(errorMessage);
       }
@@ -127,6 +135,6 @@ export function useEditProduct(productId: string | undefined): UseEditProductRet
     handleChange,
     handleSubmit,
     clearErrors,
-    isOwner
+    isOwner,
   };
 }

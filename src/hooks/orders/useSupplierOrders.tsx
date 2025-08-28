@@ -16,7 +16,8 @@ export function useSupplierOrders() {
       const response = await api.get('/api/supplier/orders');
       setOrders(response.data);
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to fetch supplier orders';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to fetch supplier orders';
       setError(errorMessage);
       setGlobalError(errorMessage);
     } finally {
@@ -36,6 +37,6 @@ export function useSupplierOrders() {
     orders,
     loading,
     error,
-    refetchOrders
+    refetchOrders,
   };
 }

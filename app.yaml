@@ -7,11 +7,11 @@
 #     branch: main
 #   build_command: npm install && npm run build
 #   output_dir: dist
-  
+
 #   envs:
 #   - key: VITE_API_URL
 #     value: "https://padellers-back-cdnso.ondigitalocean.app/"
-  
+
 #   # Explicit SPA routes configuration - fixes login/register 404s
 #   routes:
 #   - path: /
@@ -21,11 +21,11 @@
 #   - path: /cart
 #   - path: /orders
 #   - path: /product/*
-  
+
 #   # Fallback for all other routes
 #   catchall_document: index.html
 #   # error_document: index.html
-  
+
 #   # Headers for better caching and CORS
 #   headers:
 #   - pattern: "*.js"

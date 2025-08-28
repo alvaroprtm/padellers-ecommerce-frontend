@@ -2,7 +2,7 @@ import { useAppContext } from '../../context/AppContext';
 
 export const usePermissions = () => {
   const { user } = useAppContext();
-  
+
   const hasPermission = (permission: string): boolean => {
     if (!user?.permissions) return false;
     return user.permissions.includes(permission);

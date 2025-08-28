@@ -15,7 +15,8 @@ export function useDeleteOrder() {
       await api.delete(`/api/orders/${orderId}`);
       return true;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to cancel order';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to cancel order';
       setError(errorMessage);
       setGlobalError(errorMessage);
       return false;
@@ -30,6 +31,6 @@ export function useDeleteOrder() {
     deleteOrder,
     loading,
     error,
-    clearError
+    clearError,
   };
 }

@@ -16,7 +16,8 @@ export function useUserOrders() {
       const response = await api.get('/api/orders');
       setOrders(response.data);
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to fetch orders';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to fetch orders';
       setError(errorMessage);
       setGlobalError(errorMessage);
     } finally {
@@ -36,6 +37,6 @@ export function useUserOrders() {
     orders,
     loading,
     error,
-    refetchOrders
+    refetchOrders,
   };
 }

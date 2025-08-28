@@ -23,14 +23,15 @@ export function useCreateOrder() {
       const payload: CreateOrderPayload = {
         items: items.map(item => ({
           product_id: item.product.id,
-          quantity: item.quantity
-        }))
+          quantity: item.quantity,
+        })),
       };
 
       const response = await api.post('/api/orders', payload);
       return response.data;
     } catch (err: any) {
-      const errorMessage = err.response?.data?.message || 'Failed to create order';
+      const errorMessage =
+        err.response?.data?.message || 'Failed to create order';
       setError(errorMessage);
       setGlobalError(errorMessage);
       return null;
@@ -45,6 +46,6 @@ export function useCreateOrder() {
     createOrder,
     loading,
     error,
-    clearError
+    clearError,
   };
 }

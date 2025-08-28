@@ -8,23 +8,25 @@ const AddProduct = () => {
     name: '',
     description: '',
     price: '',
-    image_url: ''
+    image_url: '',
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>({});
   const navigate = useNavigate();
   const { user } = useAppContext();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     if (errors[name]) {
       setErrors((prev: any) => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
@@ -36,14 +38,16 @@ const AddProduct = () => {
     try {
       const response = await api.post('/api/products', {
         ...formData,
-        price: parseFloat(formData.price) || 0
+        price: parseFloat(formData.price) || 0,
       });
       navigate(`/product/${response.data.id}`);
     } catch (error: any) {
       if (error.response?.data?.errors) {
         setErrors(error.response.data.errors);
       } else {
-        setErrors({ general: error.response?.data?.message || 'Failed to create product' });
+        setErrors({
+          general: error.response?.data?.message || 'Failed to create product',
+        });
       }
     } finally {
       setLoading(false);
@@ -52,7 +56,10 @@ const AddProduct = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-black flex justify-center items-center" style={{ color: 'rgba(255, 255, 255, 0.87)' }}>
+      <div
+        className="min-h-screen bg-black flex justify-center items-center"
+        style={{ color: 'rgba(255, 255, 255, 0.87)' }}
+      >
         <div className="text-center">
           <p className="text-lg mb-4">Please log in to add products</p>
           <button
@@ -69,16 +76,26 @@ const AddProduct = () => {
   return (
     <div className="min-h-screen bg-black">
       <div className="max-w-2xl mx-auto px-4 py-8">
-            <button
-              onClick={() => navigate('/')}
-              className="flex items-center text-gray-400 hover:text-white transition-colors duration-200 mr-4"
-            >
-              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back
-            </button>
-            <h1 className="text-3xl font-bold my-5">Add New Product</h1>
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center text-gray-400 hover:text-white transition-colors duration-200 mr-4"
+        >
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back
+        </button>
+        <h1 className="text-3xl font-bold my-5">Add New Product</h1>
 
         <div className="bg-gray-900 bg-opacity-50 rounded-lg border border-gray-800 backdrop-blur-sm">
           <form onSubmit={handleSubmit} className="p-6">
@@ -108,7 +125,10 @@ const AddProduct = () => {
             </div>
 
             <div className="mb-6">
-              <label htmlFor="description" className="block text-sm font-medium mb-2">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium mb-2"
+              >
                 Description
               </label>
               <textarea
@@ -121,7 +141,9 @@ const AddProduct = () => {
                 placeholder="Enter product description (optional)"
               />
               {errors.description && (
-                <p className="mt-1 text-sm text-red-400">{errors.description[0]}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.description[0]}
+                </p>
               )}
             </div>
 
@@ -147,7 +169,10 @@ const AddProduct = () => {
             </div>
 
             <div className="mb-8">
-              <label htmlFor="image_url" className="block text-sm font-medium mb-2">
+              <label
+                htmlFor="image_url"
+                className="block text-sm font-medium mb-2"
+              >
                 Image URL
               </label>
               <input
@@ -160,7 +185,9 @@ const AddProduct = () => {
                 placeholder="https://example.com/image.jpg (optional)"
               />
               {errors.image_url && (
-                <p className="mt-1 text-sm text-red-400">{errors.image_url[0]}</p>
+                <p className="mt-1 text-sm text-red-400">
+                  {errors.image_url[0]}
+                </p>
               )}
             </div>
 
@@ -179,7 +206,7 @@ const AddProduct = () => {
                   'Create Product'
                 )}
               </button>
-              
+
               <button
                 type="button"
                 onClick={() => navigate('/')}
