@@ -125,7 +125,7 @@ const Orders = () => {
                 <div className="px-6 py-4">
                   <div className="flex items-center space-x-4">
                     <div className="flex -space-x-2">
-                      {order.order_items?.slice(0, 3).map((item, index) => (
+                      {order.order_items?.slice(0, 3).map((item) => (
                         <div key={item.id} className="w-12 h-12 bg-gray-800 bg-opacity-50 rounded-lg overflow-hidden border-2 border-black">
                           {item.product?.image_url ? (
                             <img

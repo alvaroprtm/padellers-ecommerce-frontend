@@ -1,0 +1,35 @@
+name: padellers-frontend
+
+# Static site service for React frontend
+static_sites:
+- name: frontend
+  source_dir: /
+  github:
+    repo: alvaroprtm/padellers-ecommerce-frontend  # Replace with your actual frontend repo
+    branch: main
+  
+  # Build configuration
+  build_command: npm ci && npm run build
+  output_dir: dist
+  
+  # Environment variables for build
+  envs:
+  - key: VITE_API_URL
+    value: "https://padellers-api-<your-app-id>.ondigitalocean.app"  # Replace with your actual backend URL
+  
+  # Routes configuration
+  routes:
+  - path: /
+  
+  # SPA routing - redirect all routes to index.html
+  catchall_document: index.html
+  
+  # Error pages
+  error_document: index.html
+
+# Optional: Domain configuration (if you have a custom domain)
+# domains:
+# - domain: www.yourapp.com
+#   type: PRIMARY
+# - domain: yourapp.com
+#   type: ALIAS

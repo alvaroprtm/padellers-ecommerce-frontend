@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import Header  from '../common/Header';
 import { useAppContext } from '../../context/AppContext';
 

@@ -9,7 +9,7 @@ export function useProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const { setError: setGlobalError, user } = useAppContext();
+  const { setError: setGlobalError } = useAppContext();
   const { hasRole } = usePermissions();
 
   const uri = hasRole('supplier') ? '/api/supplier/products' : '/api/products';

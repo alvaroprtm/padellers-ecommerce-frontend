@@ -116,7 +116,7 @@ const Cart = () => {
               onCheckout={handleCheckout}
               onClearCart={clearCart}
               isLoading={orderLoading}
-              error={orderError}
+              error={orderError || undefined}
             />
           </div>
         </div>
