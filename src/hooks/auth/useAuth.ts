@@ -9,7 +9,6 @@ export function useAuth() {
 
   const login = async (payload: LoginPayload) => {
     try {
-      await api.get('/sanctum/csrf-cookie');
       const res = await api.post('/api/login', payload);
       setUser({ id: res.data.user.id, name: res.data.user.name, token: res.data.token, role: res.data.roles[0], permissions:res.data.permissions });
       return true;
@@ -21,7 +20,6 @@ export function useAuth() {
 
   const register = async (payload: RegisterPayload) => {
     try {
-      await api.get('/sanctum/csrf-cookie');
       await api.post('/api/register', payload);
       return true;
     } catch (e: any) {
