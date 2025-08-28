@@ -7,11 +7,23 @@ static_sites:
     branch: main
   build_command: npm install && npm run build
   output_dir: dist
+  
   envs:
   - key: VITE_API_URL
-    value: "https://padellers-api-h6zkh.ondigitalocean.app"
-  routes:
-  - path: /
-  - path: /*
+    value: "https://padellers-back-cdnso.ondigitalocean.app/"
+  
+  # SPA routing - serve index.html for all routes
   catchall_document: index.html
   error_document: index.html
+  
+  routes:
+  - path: /
+  
+  # Headers for better caching and CORS
+  headers:
+  - pattern: "*.js"
+    set:
+      Cache-Control: "public, max-age=31536000, immutable"
+  - pattern: "*.css"
+    set:
+      Cache-Control: "public, max-age=31536000, immutable"
