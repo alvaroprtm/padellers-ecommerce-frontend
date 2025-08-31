@@ -44,6 +44,8 @@ export interface OrderItem {
   product: Product;
   created_at: string;
   updated_at: string;
+  name: string;
+  description: string;
 }
 
 export interface ProductsResponse {

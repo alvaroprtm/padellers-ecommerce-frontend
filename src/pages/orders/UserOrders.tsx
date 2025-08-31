@@ -219,7 +219,7 @@ const Orders = () => {
                         className="text-sm"
                         style={{ color: 'rgba(255, 255, 255, 0.87)' }}
                       >
-                        {order.order_items?.[0]?.product?.name}
+                        {order.order_items?.[0]?.name}
                         {(order.order_items?.length || 0) > 1 &&
                           ` and ${(order.order_items?.length || 0) - 1} more`}
                       </p>
